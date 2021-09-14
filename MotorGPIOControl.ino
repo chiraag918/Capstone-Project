@@ -12,8 +12,6 @@ void setup() {
     pinMode(SENSORA, INPUT_PULLUP);
     pinMode(SENSORB, INPUT_PULLUP);
     pinMode(ACTION, OUTPUT);
-    pinMode(8,INPUT);
-    pinMode(7,INPUT);
 }
 
 void loop() 
@@ -24,11 +22,14 @@ void loop()
     int L2=digitalRead(SENSORB);
 
     
-    if(L1==1 and L2==1)
+    if(L1==1 and L2==1 and Serial.available() > 0)
     {
+     
+     data = Serial.read();
+     
      digitalWrite(ACTION,LOW);   
     
-     if(digitalRead(7)==HIGH && digitalRead(8)==HIGH)
+     if(data==49)
      {
       
      motor1=75;
@@ -37,7 +38,7 @@ void loop()
      Serial.write(motor2);
      
     }
-    else if(digitalRead(7)==LOW && digitalRead(8)==HIGH)
+    else if(data==50)
     {
      
      motor1=75;
@@ -47,7 +48,7 @@ void loop()
      
      
     }
-    else if(digitalRead(7)==HIGH && digitalRead(8)==LOW)
+    else if(data==51)
     {
       
      motor1=64;
