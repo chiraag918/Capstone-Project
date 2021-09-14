@@ -24,21 +24,17 @@ myFont2 = tkFont.Font(family = 'Helvetica', size = 20, weight= 'bold')
 
 
 def movef():
-    GPIO.output(26, GPIO.HIGH)
-    GPIO.output(24, GPIO.HIGH)
+    ser.write(b'1')
     
 def left():
-    GPIO.output(26, GPIO.LOW)
-    GPIO.output(24, GPIO.HIGH)
+    ser.write(b'2')
     
     
 def right():
-    GPIO.output(26, GPIO.HIGH)
-    GPIO.output(24, GPIO.LOW)
+    ser.write(b'3')
     
 def stop():
-    GPIO.output(26, GPIO.LOW)
-    GPIO.output(24, GPIO.LOW)
+    ser.write(b'4')
 
 def speech():
     os.system('python /home/pi/Desktop/SpeechRecog.py')
