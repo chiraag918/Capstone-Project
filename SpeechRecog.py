@@ -2,10 +2,9 @@ import speech_recognition as sr
 from datetime import date
 from gpiozero import LED
 from time import sleep
+from serial import Serial
 
-motor1 = LED(8)
-motor2 = LED(7)
-
+ser = serial.Serial("/dev/ttyS0",38400)
 
 r = sr.Recognizer()
 mic = sr.Microphone()
@@ -23,32 +22,26 @@ while True:
                 print(date.today())
 
             if "start" in words:
-                motor1.on()
-                motor2.on()
+                ser.write(b'1')
 
             if "right" in words:
-                motor1.off()
-                motor2.on()
+                ser.write(b'3')
 
             if "left" in words:
-                motor1.on()
-                motor2.off()
+                ser.write(b'2')
 
             if "stop" in words:
-                motor1.off()
-                motor2.off()
+                ser.write(b'4')
 
         if words == "exit":
-            motor1.off()
-            motor2.off()
+            ser.write(b'4')
             print("...")
             sleep(1)
             print("Goodbye")
             break
   
     except Exception:
-        motor1.off()
-        motor2.off()
+        ser.write(b'4')
         print("Reconnecting... Please repeat your command\n")
         
         
