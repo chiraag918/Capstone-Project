@@ -13,7 +13,7 @@ c=0
 
 while True:
     ret, frame = cap.read()
-    #imghsv = cv2.cvtColor(frame,cv2.COLOR_BGR2HSV)
+    
     low_b = np.array([70,70,70])
     high_b = np.array([0,0,0])
     mask = cv2.inRange(frame, high_b,low_b)
